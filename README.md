@@ -1,5 +1,12 @@
 💊 Pharmacy Management System – PL/SQL Oracle Database Project
 
+### 👤 Student Info
+- **Name:** Muneza Pascal  
+- **Student ID:** 26630  
+- **Course:** Database Development with PL/SQL (INSY 8311)  
+- **Lecturer:** Eric Maniraguha  
+- **Academic Year:** 2024–2025
+- 
 🧠 Introduction
 Modern pharmacies face increasing challenges due to manual processes that often result in prescription errors, inventory mismatches, delayed patient services, and data inconsistencies. 
 To address these pain points, this project introduces a Pharmacy Management System built using Oracle Database and PL/SQL programming. The system provides automation, real-time tracking, and secure data management for prescriptions, inventory, and payments—enhancing service delivery and operational efficiency.
