@@ -18,14 +18,15 @@ The project was implemented in eight phases, covering everything from problem an
 📅 Project Timeline and Structure
 
 Phase | Title
-Phase 1 | 🎯 Problem Statement
-Phase 2 | 🛠 Business Process Modeling
-Phase 3 | 🧩 Logical Model Design
-Phase 4 | 🏗️ Physical Database Implementation
-Phase 5 | 🧪 Data Insertion
-Phase 6 | 🔄 Transaction Handling
-Phase 7 | 🔐 Security Features
-Phase 8 | 📊 Reporting and Query Optimization
+
+- **(Phase 1: 🎯 Problem Statement).** **Identifying Core Challenges** – Pinpointing the key pharmacy pain points (prescription errors, stock mismatches, billing delays) and defining exactly what our system must solve.
+- **(Phase 2: 🛠 Business Process Modeling).** **Mapping Essential Workflows** – Drawing a clear flowchart of prescription issuance → validation → dispensing → billing → stock update, and assigning who does each step.
+- **(Phase 3: 🧩 Logical Model Design).** **Designing Strong Foundations** – Translating workflow into tables (Patients, Doctors, Medicines, Prescriptions, Payments), defining fields and relationships to ensure clean, normalized data.
+- **(Phase 4: 🏗️ Physical Database Implementation).**  **Building the Database** – Creating the Oracle pluggable database (mon_26630_pascal_pharmacy_db), setting up user privileges, and connecting Oracle Enterprise Manager for real-time monitoring.
+- **(Phase 5: 🧪 Data Insertion).**  **Populating with Meaningful Data** – Loading realistic sample records (patients, doctors, medicines, prescriptions, payments) to validate constraints and simulate real-world operations.
+- **(Phase 6: 🔄 Transaction Handling).**  **Ensuring Data Integrity** – Writing PL/SQL procedures, functions, and packages for core actions (issue prescription, process payment), using cursors and exception blocks to keep data accurate.
+- **(Phase 7: 🔐 Security Features).** **Securing Sensitive Information** – Implementing triggers to auto-update stock and block changes on weekdays/holidays, plus audit tables and triggers to log every data-change attempt.
+- **(Phase 8: 📊 Reporting and Query Optimization).**  **Delivering Actionable Insights** – Crafting analytical queries (low-stock alerts, sales summaries), tuning indexes for speed, and preparing final reports and a 10-slide presentation for stakeholders.
 
 ##🎯 Phase 1: Problem Statement
 
@@ -60,36 +61,97 @@ Managers – View analytics, track performance
 - Automate prescription workflows
 
 - Track inventory levels and alert on low stock
+  
+ ---
 
+# 🛠️ Phase 2: Business Process Modeling (BPM)
 
-## 🛠️ Phase 2: Business Process Modeling (BPM)
-### 📌 Objectives
-This phase models the end-to-end operations of a pharmacy—from prescription handling to billing. Using BPMN diagrams, the key workflows are broken down for clarity and automation.
+### 📌 What This Phase Covers
+You’ll map out how your pharmacy operations should work—step by step—so you can spot exactly where to automate and optimize.
 
-### 🧑‍🤝‍🧑 Actors
+### 🎯 Scope & Objectives
+Scope: Prescription lifecycle, from doctor’s order through dispensing and billing.
+
+Objective: Create a clear, visual model (using BPMN or UML) that shows every actor, decision point, and system action. 
+
+### 🧑‍🤝‍🧑 Actors & Their Roles
+
 - **Doctor:** Issues a prescription
 
 - **Patient:** Receives prescription and requests medication
 
-- **Pharmacist:** Reviews prescription and dispenses medicine
+- **Pharmacist:** Validates prescription, dispenses medicine, initiates billing.
 
-- **System:** Manages stock levels, alerts, and payment status
+- **System:**Checks stock, updates inventory, processes payment, sends alerts.
 
 ### 🔁 Key Workflows
 
 1. **Prescription Issuance:** Doctor prescribes medicine to patient.
 
-2. **Prescription Validation:** Pharmacist verifies the prescription.
+2. **Validation & Veryfiation:** 
+    . Pharmacist retrieves the order, checks for completeness/legibility.
 
-3. **Stock Check:** System checks availability.
+  .  System verifies patient eligibility and payment status.
+  
+4. **Stock Check:**
+    . System automatically confirms medicine availability.
 
-4. **Dispensing & Billing:** Medication is issued and payment processed.
+   . If out of stock → trigger back-order or low-stock alert.
+   
+5. **Dispensing & Billing:**
+  . Pharmacist dispenses the medicine.
 
-5. **Inventory Update:** System updates stock levels automatically.
+ . System calculates cost, records payment method, and issues receipt.
+ 
+7. **Inventory Update & Notification:**
 
-Maintain secure patient prescription records
+  . System deducts dispensed quantity from stock.
 
-Integrate payment management and reporting
+  . Alerts sent if stock falls below reorder threshold.
+
+  ### 🏷️ Use of Swimlanes
+
+* 📘 **Doctor Lane:**  
+  - Creates and submits the electronic prescription.  
+
+* 📙 **Patient Lane:**  
+  - Receives notifications (e.g., “Prescription ready for pickup”).  
+  - Provides any additional info if needed (e.g., insurance details).  
+
+* 📗 **Pharmacist Lane:**  
+  - Retrieves and validates the prescription.  
+  - Dispenses medicine and hands it over to the patient.  
+  - Initiates billing and confirms payment.  
+
+* 📔 **System Lane:**  
+  - Checks medicine stock and availability.  
+  - Updates inventory quantities automatically.  
+  - Processes payment and issues receipts.  
+  - Sends low-stock alerts or back-order notifications.  
+
+
+### 🔄 Logical Flow Description
+
+Start: Doctor logs into system → enters prescription.
+
+Decision: System checks patient record → if invalid, notify pharmacist → end.
+
+Action: Pharmacist verifies prescription details.
+
+Decision: System checks stock → if available, proceed; if not, send low-stock alert.
+
+Action: Pharmacist dispenses medicine → system records transaction.
+
+Action: System updates inventory and processes payment.
+
+End: Patient is notified that prescription is fulfilled.
+
+📊 Deliverable
+A BPMN diagram (in Lucidchart or draw.io) that depicts the above swimlanes, workflows, decision points, and system actions.
+
+A brief write-up (1/2 page) explaining each step and how it aligns with MIS principles (e.g., decision support, data flow, exception handling). 
+
+Tip: Keep your diagram clean—use standard BPMN symbols (events, tasks, gateways) and label every arrow with the trigger or data passed.
 
 ## 🧩 Phase 3: Logical Model Design
 
