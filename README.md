@@ -28,9 +28,9 @@ Phase | Title
 - **(Phase 7: 🔐 Security Features).** **Securing Sensitive Information** – Implementing triggers to auto-update stock and block changes on weekdays/holidays, plus audit tables and triggers to log every data-change attempt.
 - **(Phase 8: 📊 Reporting and Query Optimization).**  **Delivering Actionable Insights** – Crafting analytical queries (low-stock alerts, sales summaries), tuning indexes for speed, and preparing final reports and a 10-slide presentation for stakeholders.
 
-##🎯 Phase 1: Problem Statement
+**#🎯 Phase 1: Problem Statement.**
 
-###🧩 Problem Definition
+**###🧩 Problem Definition**
 
 Pharmacies often face operational inefficiencies due to manual handling of prescriptions, outdated inventory tracking methods, and unstructured patient records. These issues contribute to:
 
