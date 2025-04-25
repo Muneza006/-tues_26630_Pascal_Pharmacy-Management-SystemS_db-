@@ -153,31 +153,113 @@ A brief write-up (1/2 page) explaining each step and how it aligns with MIS prin
 
 Tip: Keep your diagram clean—use standard BPMN symbols (events, tasks, gateways) and label every arrow with the trigger or data passed.
 
-## 🧩 Phase 3: Logical Model Design
+# 🗂 Phase 3: Logical Model Design for Pharmacy Management System
 
-### 📐 ER Diagram & Entities
+## 📠 What This Phase Covers
+This phase focuses on designing a detailed and robust logical data model for the pharmacy management system. The goal is to create a structure that accurately represents entities, their attributes, and relationships while ensuring the design can handle real-world pharmacy data scenarios.
 
-The logical model defines the key entities, attributes, and relationships within the system. The main entities include:
+## 📌 Entities and Attributes
 
-- **Patients**: Patient_ID (PK), Name, Contact, Medical_History  
-- **Doctors**: Doctor_ID (PK), Name, License, Specialty  
-- **Medicines**: Medicine_ID (PK), Name, Stock, Price  
-- **Prescriptions**: Prescription_ID (PK), Patient_ID (FK), Doctor_ID (FK), Date  
-- **Payments**: Payment_ID (PK), Prescription_ID (FK), Amount, Method  
+### 1. 🧑‍⚕️ **Doctor**:
+* **Attributes:** `Doctor_ID (PK)`, Name, Specialization, Contact_Info, License_Number
+* Linked to Prescriptions via `Doctor_ID (FK)`
 
-### 🔗 Relationships
+### 2. 👤 **Patient**:
+* **Attributes:** `Patient_ID (PK)`, Name, DOB, Address, Phone, Email, Insurance_Info, Medical_History
+* Linked to Prescriptions and Payments
 
-- A doctor can write multiple prescriptions.  
-- A patient can receive multiple prescriptions.  
-- Each prescription can have one or more medicines.  
-- Each prescription corresponds to a payment.  
+### 3. 💊 **Medicine**:
+* **Attributes:** `Medicine_ID (PK)`, Name, Description, Manufacturer, Category, Unit_Price, Current_Stock, Reorder_Level, Expiry_Date
+* Linked to Prescription_Items via `Medicine_ID (FK)`
 
-### ⚙️ Constraints & Normalization
+### 4. 📝 **Prescription**:
+* **Attributes:** `Prescription_ID (PK)`, `Doctor_ID (FK)`, `Patient_ID (FK)`, Issue_Date, Status
+* Links Doctors to Patients and connects to Prescription_Items
 
-- All entities normalized up to **Third Normal Form (3NF)**  
-- Foreign keys and constraints applied to maintain referential integrity  
-- Data types and validation rules implemented for reliability
+### 5. 📋 **Prescription_Items**:
+* **Attributes:** `Item_ID (PK)`, `Prescription_ID (FK)`, `Medicine_ID (FK)`, Dosage, Quantity, Instructions
+* Junction table connecting Prescriptions to Medicines
 
+### 6. 👨‍💼 **Pharmacist**:
+* **Attributes:** `Pharmacist_ID (PK)`, Name, License_Number, Contact_Info, Shift_Hours
+* Linked to Dispensed_Medicines via `Pharmacist_ID (FK)`
+
+### 7. 💼 **Dispensed_Medicines**:
+* **Attributes:** `Dispensed_ID (PK)`, `Prescription_ID (FK)`, `Pharmacist_ID (FK)`, Dispensing_Date
+* Tracks which pharmacist dispensed which prescription
+
+### 8. 💵 **Payment**:
+* **Attributes:** `Payment_ID (PK)`, `Prescription_ID (FK)`, Amount, Payment_Date, Payment_Method, Status
+* Linked to Prescription via `Prescription_ID (FK)`
+
+### 9. 📦 **Inventory_Log**:
+* **Attributes:** `Log_ID (PK)`, `Medicine_ID (FK)`, Transaction_Type, Quantity, Transaction_Date
+* Tracks all inventory changes (additions, deductions, adjustments)
+
+## 🚦 Relationships and Cardinalities
+
+### 🔄 Doctor (1) — (M) Prescription
+* Each doctor can write multiple prescriptions, but each prescription is written by exactly one doctor.
+
+### 🔄 Patient (1) — (M) Prescription
+* Each patient can have multiple prescriptions over time, but each prescription belongs to exactly one patient.
+
+### 🔄 Prescription (1) — (M) Prescription_Items 
+* Each prescription can include multiple medicines, and each prescription item belongs to exactly one prescription.
+
+### 🔄 Medicine (1) — (M) Prescription_Items
+* Each medicine can appear in multiple prescriptions, and each prescription item refers to exactly one medicine.
+
+### 🔄 Pharmacist (1) — (M) Dispensed_Medicines
+* Each pharmacist can dispense multiple prescriptions, but each dispensed prescription is handled by exactly one pharmacist.
+
+### 🔄 Prescription (1) — (1) Dispensed_Medicines
+* Each prescription is dispensed exactly once, and each dispensing record refers to exactly one prescription.
+
+### 🔄 Prescription (1) — (1) Payment
+* Each prescription has exactly one payment record, and each payment is for exactly one prescription.
+
+### 🔄 Medicine (1) — (M) Inventory_Log
+* Each medicine can have multiple inventory transactions, but each inventory transaction involves exactly one medicine.
+
+## ⚙️ Handling Data Scenarios
+
+**The model is designed to handle:**
+
+* **Multiple Medications Per Prescription**: The Prescription_Items table allows a single prescription to include multiple medicines with different dosages and instructions.
+
+* **Prescription Status Tracking**: The Status attribute in Prescription table tracks whether it's new, validated, dispensed, or completed.
+
+* **Inventory Management**: The Inventory_Log tracks all changes to medicine stock, enabling accurate stock levels and reorder alerts.
+
+* **Payment Verification**: The Payment table with status field allows tracking whether payment has been completed before medicine dispensing.
+
+* **Prescription Validation**: The relationship between Prescription and Dispensed_Medicines ensures prescriptions are properly validated and dispensed by qualified pharmacists.
+
+* **Stock Thresholds**: Reorder_Level in the Medicine table triggers alerts when inventory falls below critical levels.
+
+## 📊 Normalization and Constraints
+
+* **First Normal Form (1NF)**: All tables have a primary key, and all attributes contain atomic values.
+
+* **Second Normal Form (2NF)**: All non-key attributes are fully functionally dependent on the primary key.
+
+* **Third Normal Form (3NF)**: No transitive dependencies exist, with junction tables (Prescription_Items) properly handling many-to-many relationships.
+
+* **Referential Integrity**: Foreign key constraints ensure data consistency across related tables.
+
+* **Data Validation**: Check constraints on critical fields like Medicine.Current_Stock (≥ 0) and Payment.Status.
+
+## 📝 Benefits of This Logical Model
+
+1. **Comprehensive Prescription Tracking**: Full lifecycle from creation to dispensing and payment
+2. **Accurate Inventory Management**: Real-time stock tracking with detailed transaction history
+3. **Clear Accountability**: Records which pharmacist handled each prescription
+4. **Flexible Payment Handling**: Supports multiple payment methods and status tracking
+5. **Regulatory Compliance**: Maintains complete records of prescriptions, practitioners, and dispensing details
+6. **Scalability**: Design accommodates growth in prescription volume and medication inventory
+
+This logical model provides a solid foundation for developing a reliable and efficient pharmacy management system that accurately represents the real-world processes captured in our business process model.
 
 
 ## 🏗️ Phase 4: Physical Database Implementation
