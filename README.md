@@ -18,7 +18,7 @@ The project was implemented in eight phases, covering everything from problem an
 📅 Project Timeline and Structure
 
 Phase | Title
-
+ 
 - **(Phase 1: 🎯 Problem Statement).** **Identifying Core Challenges** – Pinpointing the key pharmacy pain points (prescription errors, stock mismatches, billing delays) and defining exactly what our system must solve.
 - **(Phase 2: 🛠 Business Process Modeling).** **Mapping Essential Workflows** – Drawing a clear flowchart of prescription issuance → validation → dispensing → billing → stock update, and assigning who does each step.
 - **(Phase 3: 🧩 Logical Model Design).** **Designing Strong Foundations** – Translating workflow into tables (Patients, Doctors, Medicines, Prescriptions, Payments), defining fields and relationships to ensure clean, normalized data.
