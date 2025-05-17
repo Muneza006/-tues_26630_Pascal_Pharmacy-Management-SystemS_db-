@@ -56,6 +56,7 @@ Patients – Get medication, view history
 
 Managers – View analytics, track performance
 
+
 ### 🎯 Project Goals
 
 - Automate prescription workflows
@@ -128,6 +129,7 @@ Objective: Create a clear, visual model (using BPMN or UML) that shows every act
   - Updates inventory quantities automatically.  
   - Processes payment and issues receipts.  
   - Sends low-stock alerts or back-order notifications.  
+
 
 
 ### 🔄 Logical Flow Description
