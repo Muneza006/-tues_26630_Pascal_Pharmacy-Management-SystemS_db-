@@ -179,7 +179,7 @@ This phase focuses on designing a detailed and robust logical data model for the
 ### 5. 📋 **Prescription_Items**:
 * **Attributes:** `Item_ID (PK)`, `Prescription_ID (FK)`, `Medicine_ID (FK)`, Dosage, Quantity, Instructions
 * Junction table connecting Prescriptions to Medicines
-
+ 
 ### 6. 👨‍💼 **Pharmacist**:
 * **Attributes:** `Pharmacist_ID (PK)`, Name, License_Number, Contact_Info, Shift_Hours
 * Linked to Dispensed_Medicines via `Pharmacist_ID (FK)`
