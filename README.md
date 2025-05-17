@@ -1,7 +1,7 @@
 💊 Pharmacy Management System – PL/SQL Oracle Database Project
 
 ### 👤 Student Info
-- **Name:** Muneza Pascal  
+- **Name:** Muneza Pascal   
 - **Student ID:** 26630  
 - **Course:** Database Development with PL/SQL (INSY 8311)  
 - **Lecturer:** Eric Maniraguha  
